@@ -1,29 +1,30 @@
 <template>
-  <div class="range-component">
-    <div class="heading-container">
-      <h3>Range {{ range.rangeNum }}</h3>
-      <p>Distance: {{ range.distance }} - Face Type: {{ range.faceType }}</p>
-      <button @click="resetRange">Reset Range</button>
-      <button @click="submitRange">Submit Range</button>
+  <div class="container">
+    <div class="container card-header">
+      <h3 class="col">Range {{ range.rangeNum }}</h3>
+      <p class="col">Distance: {{ range.distance }} - Face Type: {{ range.faceType }}</p>
+      <button class="btn btn-outline-success btn-sm m-2" @click="resetRange">Reset Range</button>
+      <button class="btn btn-outline-success btn-sm m-2" @click="submitRange">Submit Range</button>
     </div>
     <div v-if="!isSubmitted">
-      <div class="end-components-container">
+      <div>
         <endComponent ref="endComponents" v-for="endNumber in parseInt(range.numberOfEnds)" :key="endNumber"
           :endNumber="endNumber" @scores-submitted="handleScoresSubmitted" @scores-reset="handleScoresReset"
           v-show="endNumber === selectedEnd">
         </endComponent>
       </div>
-      <div class="end-navigation">
+      <div class="m-2">
         <span>{{ selectedEnd }} / {{ range.numberOfEnds }}</span>
-        <button @click="incrementEnd" :disabled="selectedEnd >= range.numberOfEnds">Next</button>
+        <button type="button" class="btn btn-outline-info m-2" @click="incrementEnd"
+          :disabled="selectedEnd >= range.numberOfEnds">Next End</button>
       </div>
-      <div>
+      <div v-if="msg !== ''" class="alert alert-warning">
         {{ msg }}
       </div>
     </div>
     <div v-else>
-      <div>
-        <table>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
           <caption>Result for Range {{ rangeRecord.rangeNumber }}</caption>
           <thead>
             <tr>
@@ -36,7 +37,7 @@
               <th>Arrow 6</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="table-group-divider">
             <template v-for="(endRecord, index) in rangeRecord.endRecords" :key="index">
               <tr>
                 <td>{{ endRecord.endNumber }}</td>

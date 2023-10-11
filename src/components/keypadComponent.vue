@@ -1,5 +1,5 @@
 <template>
-  <div class="keypad card">
+  <div class="keypad">
     <div class="row">
       <button class="pastel-red" @click="selectScore('X')">X</button>
       <button class="pastel-orange" @click="selectScore(10)">10</button>

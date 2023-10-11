@@ -1,22 +1,29 @@
 <template>
   <div>
-    <div>
-      <h3>End {{ endNumber }}</h3><button @click="toggleKeypad" :disabled="isSubmitted">Edit</button>
+    <div class="m-4">
+      <h4>End {{ endNumber }}</h4>
+      <button class="btn btn-outline-primary" @click="toggleKeypad" :disabled="isSubmitted">Edit End</button>
     </div>
-    <div>
+    <div class="container m-4">
       <div class="row">
         <div class="col" v-for="index in 6" :key="index">
           <input type="text" class="form-control square-input" v-model="scores[index - 1]" readonly />
         </div>
       </div>
-      <button @click="resetScore">Reset</button>
-      <button @click="submitScore" :disabled="!scoresCompleted || isSubmitted">Submit</button>
     </div>
-    <div v-if="totalScore != NaN">
+    <div class="m-4">
       Total: {{ totalScore }}
     </div>
-    <div v-if="msg !== ''">
+    <div class="alert alert-success" role="alert" v-if="msg !== ''">
       {{ msg }}
+    </div>
+    <div class="alert alert-warning" role="alert" v-if="errMsg !== ''">
+      {{ errMsg }}
+    </div>
+    <div>
+      <button type="button" class="btn btn-outline-primary mr-2" @click="resetScore">Reset</button>
+      <button type="button" class="btn btn-outline-primary ml-2" @click="submitScore"
+        :disabled="!scoresCompleted || isSubmitted">Submit</button>
     </div>
     <div>
       <keypadComponent v-if="showKeypad && !scoresCompleted && !isSubmitted" @score-selected="updateScore">
@@ -45,6 +52,7 @@ export default {
       showKeypad: false,
       writtenIndex: 0,
       msg: '',
+      errMsg: '',
       isSubmitted: false
     }
   },
@@ -63,7 +71,7 @@ export default {
         this.$emit('scores-submitted', this.endRecord);
         this.msg = "The scores have been submitted. If you wish to make changes, please click reset."
       } else {
-        this.msg = "Please enter the scores in descending order. Reset score to enter the scores again";
+        this.errMsg = "Please enter the scores in descending order. Reset score to enter the scores again.";
       }
     },
     resetScore() {
@@ -137,11 +145,6 @@ export default {
 .square-input {
   width: 50px;
   height: 50px;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
 }
 </style>
   

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="bg-light">
+        <div>
             <div class="dropdown p-3">
                 <label for="round">Choose Round:</label>
                 <select class="form-select" id="round" name="round" v-model="selectedRound">
@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="table-responsive" v-if="selectedArcher !== ''">
-            <table class="table table-striped align-middle">
-                <thead class="table-dark">
+            <table class="table table-striped">
+                <thead>
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -43,10 +43,10 @@
                 </tbody>
             </table>
         </div>
-        <div v-if="msg !== '' && !validData" class="alert alert-danger p-3" role="alert">
+        <div v-if="msg !== '' && !validData" class="alert alert-warning" role="alert">
             {{ msg }}
         </div>
-        <button @click="handleReturn" class="btn btn-outline-success">Done</button>
+        <button @click="handleReturn" class="btn btn-outline-primary">Done</button>
     </div>
 </template>
   

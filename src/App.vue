@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-5 container text-center">
+  <div class="card container text-center">
     <h1 class="card-header">Archery Score Recording Application</h1>
     <div class="card-body">
       <div v-if="!isSet">
@@ -7,24 +7,25 @@
       </div>
       <div v-else>
         <div>
-          <button @click="backToMain" class="btn btn-outline-warning">Home</button>
+          <button @click="backToMain" type="button" class="btn btn-outline-danger">Home</button>
         </div>
-        <h3 class="p-3">{{ submittedArcher.firstName }} {{ submittedArcher.lastName }}, {{
-          submittedArcher.equipment }}!</h3>
-        <div class="range-navigation pd-3 m-3">
-          <button class="btn btn-primary btn-sm" @click="decrementRange" :disabled="selectedRange === 0">Prev</button>
+        <h3 class="m-2">{{ submittedArcher.firstName }} {{ submittedArcher.lastName }}, {{
+          submittedArcher.equipment }}</h3>
+        <div class="range-navigation m-2">
+          <button class="btn btn-outline-warning btn-sm m-2" @click="decrementRange"
+            :disabled="selectedRange === 0">Prev</button>
           <span class="range-count">{{ selectedRange + 1 }} / {{ submittedRound.ranges.length }}</span>
-          <button class="btn btn-primary btn-sm" @click="incrementRange"
+          <button class="btn btn-outline-warning btn-sm m-2" @click="incrementRange"
             :disabled="selectedRange === submittedRound.ranges.length - 1">Next</button>
         </div>
-        <div class="card p-3">
+        <div class="card p-2 m-2">
           <rangeComponent ref="rangeComponents" v-for="(range, index) in submittedRound.ranges" :key="index"
             :range="range" v-show="index === selectedRange"></rangeComponent>
         </div>
         <div>
-          <button @click="exportJSON">Export JSON file for result</button>
+          <button class="btn btn-outline-dark m-2" @click="exportJSON">Export JSON file for result</button>
         </div>
-        <div>
+        <div class="alert alert-warning" v-if="msg !== ''">
           {{ msg }}
         </div>
       </div>
